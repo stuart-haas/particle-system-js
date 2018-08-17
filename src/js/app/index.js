@@ -1,3 +1,3 @@
-import Ball from './objects/ball';
+import Particle from './objects/particle';
 
-var ball = new Ball(4, 4);
+var particle = new Particle(4, 4);
