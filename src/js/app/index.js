@@ -12,7 +12,7 @@ particlesystem.addField(new Field(new Vector(800, 400), 500));
 
 particlesystem.allowInteraction = true;
 particlesystem.interactionMass = -50;
-particlesystem.animateColor(30, 60);
+particlesystem.animateColor(30, 120);
 
 particlesystem.start();
 
