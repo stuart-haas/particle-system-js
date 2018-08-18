@@ -20,7 +20,7 @@ class Particle {
     }
 
     render(ctx, color) {
-        ctx.fillStyle = color == null ? this.color : color;
+        ctx.fillStyle = color || this.color;
         ctx.fillRect(this.pos.x, this.pos.y, this.size, this.size);
     }
 

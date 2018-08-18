@@ -1,39 +1,9 @@
-class Transition {
+import Color from '../utils/color';
+
+class ColorTransition {
     constructor(fps, duration) {
         this.fps = fps || 30;
         this.duration = duration || 1;
-        this.transHandler = null;
-        this.color = null;
-    }
-
-    // A function to generate random numbers.
-    // Will be needed to generate random RGB value between 0-255.
-    random() {
-        if (arguments.length > 2) {
-            return 0;
-        }
-        switch (arguments.length) {
-            case 0:
-                return Math.random();
-            case 1:
-                return Math.round(Math.random() * arguments[0]);
-            case 2:
-                var min = arguments[0];
-                var max = arguments[1];
-                return Math.round(Math.random() * (max - min) + min);
-        }
-    }
-
-    // Generates a random RGB value.
-    generateRGB(min, max) {
-        var min		= min || 0;
-        var max		= min || 255;
-        var color	= [];
-        for (var i = 0; i < 3; i++) {
-            var num = this.random(min, max);
-            color.push(num);
-        }
-        return color;
     }
 
     // Calculates the distance between the RGB values.
@@ -63,23 +33,11 @@ class Transition {
         return increment;
     }
 
-    // Converts RGB array [32,64,128] to HEX string #204080
-    // It's easier to apply HEX color than RGB color.
-    rgb2hex(colorArray) {
-        var color = [];
-        for (var i = 0; i < colorArray.length; i++) {
-            var hex = colorArray[i].toString(16);
-            if (hex.length < 2) { hex = "0" + hex; }
-            color.push(hex);
-        }
-        return "#" + color.join("");
-    }
-
     startTransition() {
-        clearInterval(this.transHandler);
+        clearInterval(this.transition);
         
-        this.currentColor = this.currentColor == null ? this.generateRGB() : this.currentColor;
-        this.targetColor = this.generateRGB();
+        this.currentColor = this.currentColor || Color.generateRGB();
+        this.targetColor = Color.generateRGB();
         this.distance = this.calculateDistance(this.currentColor, this.targetColor);
         this.increment = this.calculateIncrement(this.distance, this.fps, this.duration);
         
@@ -127,7 +85,7 @@ class Transition {
         }
         
         // applying the new modified color
-        this.color = this.rgb2hex(this.currentColor);
+        this.globalColor = Color.rgb2hex(this.currentColor);
         
         // transition ended. start a new one
         if (this.increment[0] == 0 && this.increment[1] == 0 && this.increment[2] == 0) {
@@ -136,4 +94,4 @@ class Transition {
     }
 }
 
-export {Transition as default}
+export {ColorTransition as default}

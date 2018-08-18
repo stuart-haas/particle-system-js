@@ -1,7 +1,6 @@
 import Type from '../utils/type';
 import Vector from '../math/vector';
 import Particle from '../core/particle';
-import ParticleSystem from '../core/particlesystem';
 
 class Emitter {
     constructor(type, pos, vel, spread, max, rate, damp, mass, size, color) {
@@ -12,9 +11,9 @@ class Emitter {
         this.vel = vel;
         this.spread = spread || Math.PI / 32;
         this.max = max || 10000;
-        this.rate = rate || 20;
+        this.rate = rate || 10;
         this.damp = damp || 0.98;
-        this.mass = mass || 500;
+        this.mass = mass || 100;
         this.size = size || 1;
         this.color = color || '#000ffc';
         this.drawSize = 3;

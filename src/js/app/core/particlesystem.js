@@ -1,30 +1,27 @@
 import Shape from '../draw/shape';
-import Transition from '../animate/transitions';
+import ColorTransition from '../animate/colorTransition';
 
 class ParticleSystem {
     constructor() {
-        this.mx = 0;
-        this.my = 0;
-        this.emitters = [];
         this.canvas = document.querySelector('canvas');
         this.ctx = this.canvas.getContext('2d');
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
+        this.emitters = [];
+        this.mx = 0;
+        this.my = 0;
         this.drawEmitters = false;
         this.drawFields = false;
         this.interaction = false;
         this.interactionMass = 100;
-        this.color = null;
-        this.speed = 1000;
-        this.transition = null;
     }
 
-    animateColor() {
-        this.transition = new Transition(30, 10);
+    animateColor(fps, duration) {
+        this.transition = new ColorTransition(fps, duration);
         this.transition.startTransition();
     }
 
-    handleMouseMove(e) {
+    mouseMoveHandler(e) {
         this.mx = e.clientX;
         this.my = e.clientY;
     }
@@ -65,7 +62,7 @@ class ParticleSystem {
     render() {
         for(let i = 0; i < this.emitters.length; i ++) {
             let emitter = this.emitters[i];
-            emitter.render(this.ctx, this.transition.color);
+            emitter.render(this.ctx, this.transition.globalColor);
             if(this.drawEmitters)
                 Shape.circle(this.ctx, emitter.pos, emitter.drawSize, emitter.drawColor);
 
@@ -85,7 +82,7 @@ class ParticleSystem {
     set allowInteraction(value) {
         this.interaction = value;
         if(this.interaction)
-            document.onmousemove = this.handleMouseMove.bind(this);
+            document.onmousemove = this.mouseMoveHandler.bind(this);
     }
 }
 
