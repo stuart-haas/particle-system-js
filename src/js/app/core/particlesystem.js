@@ -3,7 +3,6 @@ class ParticleSystem {
         this.mx = 0;
         this.my = 0;
         this.emitters = [];
-        this.fields = [];
         this.canvas = document.querySelector('canvas');
         this.ctx = this.canvas.getContext('2d');
         this.canvas.width = window.innerWidth;
