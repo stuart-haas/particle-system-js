@@ -7,9 +7,11 @@ const strip = require('gulp-strip-comments');
 const webpack = require('webpack-stream');
 const webpackConfig = require('./webpack.config.js');
 const livereload = require('gulp-livereload');
+const sourcemaps = require('gulp-sourcemaps');
 
 const JS_SRC = 'src/js/app/**/*.js';
 const JS_DEST = 'public/js';
+const JS_MAPS = '/maps';
 
 gulp.task('js', function(){
   return gulp.src(JS_SRC)
@@ -21,8 +23,10 @@ gulp.task('js', function(){
       gutil.beep();
     }}))
     .pipe(webpack(webpackConfig))
-    .pipe(uglify())
+    .pipe(sourcemaps.init())
     .pipe(strip())
+    .pipe(uglify())
+    .pipe(sourcemaps.write(JS_MAPS))
     .pipe(gulp.dest(JS_DEST))
     .pipe(livereload());
 });
