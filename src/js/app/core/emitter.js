@@ -1,6 +1,7 @@
 import Type from '../utils/type';
 import Vector from '../math/vector';
 import Particle from '../core/particle';
+import ParticleSystem from '../core/particlesystem';
 
 class Emitter {
     constructor(type, pos, vel, spread, max, rate, damp, mass, size, color) {
@@ -35,7 +36,10 @@ class Emitter {
         return new Particle(pos, vel, null, this.damp, this.mass, this.size, this.color);
     }
 
-    update(bx, by) {
+    update(bx, by, mx, my, mass) {
+        this.mx = mx || null;
+        this.my = my || null;
+        
         let currentParticles = [];
 
         for(let i = 0; i < this.particles.length; i ++) {
@@ -45,6 +49,9 @@ class Emitter {
             if(pos.x < 0 || pos.x > bx || pos.y < 0 || pos.y > by) continue;
 
             particle.update();
+
+            if(this.mx && this.my)
+                particle.addForce(new Vector(this.mx, this.my), mass);
 
             for(let j = 0; j < this.fields.length; j ++) {
                 let field = this.fields[j];
@@ -56,11 +63,10 @@ class Emitter {
         this.particles = currentParticles;
     }
 
-    render(ctx) {
-
+    render(ctx, color) {
         for(let i = 0; i < this.particles.length; i ++) {  
             let particle = this.particles[i];
-            particle.render(ctx);
+            particle.render(ctx, color);
         }
     }
 

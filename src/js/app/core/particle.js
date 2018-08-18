@@ -19,8 +19,8 @@ class Particle {
         this.pos.add(this.vel);
     }
 
-    render(ctx) {
-        ctx.fillStyle = this.color;
+    render(ctx, color) {
+        ctx.fillStyle = color == null ? this.color : color;
         ctx.fillRect(this.pos.x, this.pos.y, this.size, this.size);
     }
 
