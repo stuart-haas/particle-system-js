@@ -1,3 +1,4 @@
+import Color from '../utils/color';
 import Vector from '../math/vector';
 
 class Particle {
@@ -8,7 +9,7 @@ class Particle {
         this.damp = damp || 0.98;
         this.mass = mass || 100;
         this.size = size || 1;
-        this.color = color == 'random' ? this.getRandomColor() : color;
+        this.color = color == 'random' ? Color.RANDOM : color;
     }
 
     update() {
@@ -41,15 +42,6 @@ class Particle {
         fy += vy * tForce;
 
         return new Vector(fx, fy);
-    }
-
-    getRandomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (let i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
     }
 }
 

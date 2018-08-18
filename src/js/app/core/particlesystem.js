@@ -1,3 +1,5 @@
+import Shape from '../draw/shape';
+
 class ParticleSystem {
     constructor() {
         this.mx = 0;
@@ -7,6 +9,8 @@ class ParticleSystem {
         this.ctx = this.canvas.getContext('2d');
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
+        this.drawEmitters = false;
+        this.drawFields = false;
     }
 
     addEmitter(emitter) {
@@ -43,6 +47,15 @@ class ParticleSystem {
         for(let i = 0; i < this.emitters.length; i ++) {
             let emitter = this.emitters[i];
             emitter.render(this.ctx);
+            if(this.drawEmitters)
+                Shape.circle(this.ctx, emitter.pos, emitter.drawSize, emitter.drawColor);
+
+            if(this.drawFields) {
+                for(let j = 0; j < emitter.fields.length; j ++) {
+                    let field = emitter.fields[j];
+                    Shape.circle(this.ctx, field.pos, field.drawSize, field.drawColor);
+                }
+            }
         }
     }
   

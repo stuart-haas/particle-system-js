@@ -1,4 +1,3 @@
-import Color from '../utils/color';
 import Type from '../utils/type';
 import Vector from '../math/vector';
 import Particle from '../core/particle';
@@ -17,6 +16,8 @@ class Emitter {
         this.mass = mass || 500;
         this.size = size || 1;
         this.color = color || '#000ffc';
+        this.drawSize = 3;
+        this.drawColor = type == 'point' ? '#999' : 'area' ? 'transparent' : null;
     }
 
     add() {
@@ -61,10 +62,6 @@ class Emitter {
             let particle = this.particles[i];
             particle.render(ctx);
         }
-    }
-
-    static get COLOR() {
-        return Color;
     }
 
     static get TYPE() {
