@@ -9,7 +9,7 @@ class Particle {
         this.damp = damp || 0.98;
         this.mass = mass || 100;
         this.size = size || 1;
-        this.color = color == 'random' ? Color.RANDOM : color;
+        this.color = color || Color.RANDOM;
     }
 
     update() {
