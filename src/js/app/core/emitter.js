@@ -32,14 +32,14 @@ class Emitter {
         this.transition.startTransition();
     }
 
-    add() {
+    addParticles() {
         if(this.particles.length > this.max) return;
         for(let i = 0; i < this.rate; i ++) {
-            this.particles.push(this.get());
+            this.particles.push(this.getParticle());
         }
     }
 
-    get() {
+    getParticle() {
         let angle = this.vel.getAngle() + this.spread - (Math.random() * this.spread * 2);
         let magnitude = this.vel.getMagnitude();
         let pos = this.type == 'point' ? new Vector(this.pos.x, this.pos.y) : 'area' ? new Vector(Math.random() * this.pos.x, Math.random() * this.pos.y) : new Vector();

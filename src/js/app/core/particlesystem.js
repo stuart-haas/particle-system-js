@@ -41,7 +41,7 @@ class ParticleSystem {
     update () {
         for(let i = 0; i < this.emitters.length; i ++) {
             let emitter = this.emitters[i];
-            emitter.add();
+            emitter.addParticles();
             if(this.interaction)
                 emitter.update(this.canvas.width, this.canvas.height, this.mx, this.my, this.interactionMass);
             else 
