@@ -1,5 +1,4 @@
 import Shape from '../draw/shape';
-import ColorTransition from '../animate/colorTransition';
 
 class ParticleSystem {
     constructor() {
@@ -11,14 +10,8 @@ class ParticleSystem {
         this.mx = 0;
         this.my = 0;
         this.drawEmitters = false;
-        this.drawFields = false;
         this.interaction = false;
         this.interactionMass = 100;
-    }
-
-    animateColor(fps, duration) {
-        this.transition = new ColorTransition(fps, duration);
-        this.transition.startTransition();
     }
 
     mouseMoveHandler(e) {
@@ -30,11 +23,8 @@ class ParticleSystem {
         this.emitters.push(emitter);
     }
 
-    addField(field) {
-        for(let i = 0; i < this.emitters.length; i ++) {
-            let emitter = this.emitters[i];
-            emitter.fields.push(field);
-        }
+    getEmitter(index) {
+        return this.emitters[index];
     }
 
     start() {
@@ -62,16 +52,9 @@ class ParticleSystem {
     render() {
         for(let i = 0; i < this.emitters.length; i ++) {
             let emitter = this.emitters[i];
-            emitter.render(this.ctx, this.transition.globalColor);
+            emitter.render(this.ctx);
             if(this.drawEmitters)
                 Shape.circle(this.ctx, emitter.pos, emitter.drawSize, emitter.drawColor);
-
-            if(this.drawFields) {
-                for(let j = 0; j < emitter.fields.length; j ++) {
-                    let field = emitter.fields[j];
-                    Shape.circle(this.ctx, field.pos, field.drawSize, field.drawColor);
-                }
-            }
         }
     }
   

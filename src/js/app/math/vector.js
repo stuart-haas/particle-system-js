@@ -8,14 +8,6 @@ class Vector{
         this.x += vector.x;
         this.y += vector.y;
     }
-    
-    getMagnitude() {
-        return Math.sqrt(this.x * this.x + this.y * this.y);
-    }
-
-    getAngle() {
-        return Math.atan2(this.y, this.x);
-    }
 
     multiply(value) {
         return new Vector(this.x *= value, this.y *= value);
@@ -23,6 +15,14 @@ class Vector{
 
     divide(value) {
         return new Vector(this.x /= value, this.y /= value);
+    }
+    
+    getMagnitude() {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    }
+
+    getAngle() {
+        return Math.atan2(this.y, this.x);
     }
 
     static fromAngle(angle, magnitude) {

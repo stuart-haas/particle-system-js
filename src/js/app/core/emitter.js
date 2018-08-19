@@ -1,6 +1,7 @@
 import Type from '../utils/type';
 import Vector from '../math/vector';
 import Particle from '../core/particle';
+import ColorTransition from '../animate/colorTransition';
 
 class Emitter {
     constructor(type, pos, vel, spread, max, rate, damp, mass, size, color) {
@@ -18,6 +19,17 @@ class Emitter {
         this.color = color || '#000ffc';
         this.drawSize = 3;
         this.drawColor = type == 'point' ? '#999' : 'area' ? 'transparent' : null;
+        this.drawFields = false;
+        this.transition = null;
+    }
+
+    addField(field) {
+        this.fields.push(field);
+    }
+
+    animateColor(fps, duration) {
+        this.transition = new ColorTransition(fps, duration);
+        this.transition.startTransition();
     }
 
     add() {
@@ -62,10 +74,20 @@ class Emitter {
         this.particles = currentParticles;
     }
 
-    render(ctx, color) {
+    render(ctx) {
         for(let i = 0; i < this.particles.length; i ++) {  
             let particle = this.particles[i];
-            particle.render(ctx, color);
+            if(this.transition)
+                particle.render(ctx, this.transition.globalColor);
+            else
+                particle.render(ctx);
+        }
+
+        if(this.drawFields) {
+            for(let j = 0; j < this.fields.length; j ++) {
+                let field = this.fields[j];
+                Shape.circle(this.ctx, field.pos, field.drawSize, field.drawColor);
+            }
         }
     }
 
