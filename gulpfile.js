@@ -10,7 +10,7 @@ const livereload = require('gulp-livereload');
 const sourcemaps = require('gulp-sourcemaps');
 
 const JS_SRC = 'src/js/app/**/*.js';
-const JS_DEST = 'public/js';
+const JS_DEST = 'public';
 const JS_MAPS = '/maps';
 
 gulp.task('js', function(){
